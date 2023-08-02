@@ -1,0 +1,52 @@
+{
+  "$schema": "https://developer.microsoft.com/en-us/json-schemas/teams/v1.13/MicrosoftTeams.schema.json",
+  "manifestVersion": "1.13",
+  "id": "4e6310f0-283f-11ee-b679-678465f4fd00",
+  "version": "0.0.1",
+  "packageName": "vnuaschedule",
+  "developer": {
+    "name": "gyInformagy Facutyn",
+    "websiteUrl": "https://5699-116-104-51-98.ngrok-free.app",
+    "privacyUrl": "https://5699-116-104-51-98.ngrok-free.app/privacy.html",
+    "termsOfUseUrl": "https://5699-116-104-51-98.ngrok-free.app/tou.html"
+  },
+  "name": {
+    "short": "VnuaTeams",
+    "full": "VnuaTeams"
+  },
+  "description": {
+    "short": "TODO: add short description here",
+    "full": "TODO: add full description here"
+  },
+  "icons": {
+    "outline": "icon-outline.png",
+    "color": "icon-color.png"
+  },
+  "accentColor": "#D85028",
+  "configurableTabs": [],
+  "staticTabs": [
+    {
+      "entityId": "30b71a0c-36fb-4eea-bd18-656bb54925d2",
+      "name": "VnuaTeams Tab",
+      "contentUrl": "https://5699-116-104-51-98.ngrok-free.app/vnuaTeamsTab/?name={loginHint}&tenant={tid}&theme={theme}",
+      "scopes": [
+        "personal"
+      ]
+    }
+  ],
+  "bots": [],
+  "connectors": [],
+  "composeExtensions": [],
+  "permissions": [
+    "identity",
+    "messageTeamMembers"
+  ],
+  "validDomains": [
+    "5699-116-104-51-98.ngrok-free.app"
+  ],
+  "showLoadingIndicator": false,
+  "webApplicationInfo": {
+    "id": "e2c44ec0-bc10-45c0-8cd6-df8c2f13095e",
+    "resource": "api://5699-116-104-51-98.ngrok-free.app/e2c44ec0-bc10-45c0-8cd6-df8c2f13095e"
+  }
+}

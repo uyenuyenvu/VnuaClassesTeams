@@ -1,0 +1,9 @@
+{
+  "generator-teams": {
+    "promptValues": {
+      "developer": "Uyên - Toàn - Nam"
+    },
+    "libraryName": "vnuaSchedule",
+    "generator-version": "3.5.0"
+  }
+}

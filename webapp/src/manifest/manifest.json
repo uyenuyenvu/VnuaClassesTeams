@@ -1,0 +1,48 @@
+{
+  "$schema": "https://developer.microsoft.com/en-us/json-schemas/teams/v1.9/MicrosoftTeams.schema.json",
+  "manifestVersion": "1.9",
+  "id": "{{APPLICATION_ID}}",
+  "version": "{{VERSION}}",
+  "packageName": "{{PACKAGE_NAME}}",
+  "developer": {
+    "name": "Uyên - Toàn - Nam",
+    "websiteUrl": "https://{{PUBLIC_HOSTNAME}}",
+    "privacyUrl": "https://{{PUBLIC_HOSTNAME}}/privacy.html",
+    "termsOfUseUrl": "https://{{PUBLIC_HOSTNAME}}/tou.html"
+  },
+  "name": {
+    "short": "VnuaSchedule",
+    "full": "VnuaSchedule"
+  },
+  "description": {
+    "short": "Ứng dụng tự động tạo nhóm lớp theo thời khóa biểu daotao.vnua.edu.vn",
+    "full": "Ứng dụng tự động tạo nhóm lớp theo thời khóa biểu daotao.vnua.edu.vn"
+  },
+  "icons": {
+    "outline": "icon-outline.png",
+    "color": "icon-color.png"
+  },
+  "accentColor": "#D85028",
+  "configurableTabs": [],
+  "staticTabs": [
+    {
+      "entityId": "70ce4c40-01fd-4090-9758-3142e6c2a70b",
+      "name": "Vnua classes",
+      "contentUrl": "https://{{PUBLIC_HOSTNAME}}/vnuaClassesTab/?name={loginHint}&tenant={tid}&theme={theme}",
+      "scopes": [
+        "personal"
+      ]
+    }
+  ],
+  "bots": [],
+  "connectors": [],
+  "composeExtensions": [],
+  "permissions": [
+    "identity",
+    "messageTeamMembers"
+  ],
+  "validDomains": [
+    "{{PUBLIC_HOSTNAME}}"
+  ],
+  "showLoadingIndicator": false
+}
