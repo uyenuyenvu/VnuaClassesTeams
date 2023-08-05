@@ -47,6 +47,6 @@
   "showLoadingIndicator": false,
   "webApplicationInfo": {
     "id": "e2c44ec0-bc10-45c0-8cd6-df8c2f13095e",
-    "resource": "api://5699-116-104-51-98.ngrok-free.app/e2c44ec0-bc10-45c0-8cd6-df8c2f13095e"
+    "resource": "api://{{PUBLIC_HOSTNAME}}/e2c44ec0-bc10-45c0-8cd6-df8c2f13095e"
   }
 }

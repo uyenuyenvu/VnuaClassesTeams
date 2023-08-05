@@ -18,9 +18,9 @@ import displayName = Design.displayName;
  * Implementation of the Vnua classes content page
  */
 
-const API_URL = "https://16c0-116-104-51-98.ngrok-free.app/";
+const API_URL = "https://0d83-14-191-32-232.ngrok-free.app/";
+const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjE3NmI3MDBlLTc4OGMtNDcxOC04NDY1LTI1NDJjNTI1MzUwNyIsInRlYWNoZXJJZCI6IkNOUDAyIiwibmFtZSI6IkLhu5kgbcO0biBDTlBNIiwiZW1haWwiOiJzdGRzZUB2bnVhLmVkdS52biIsIm1zQWNjZXNzVG9rZW4iOiJleUowZVhBaU9pSktWMVFpTENKdWIyNWpaU0k2SW1sVFZVcFBVemhIU3pSTmVWQnZZM2hmZFRSeE1XdFVibHBtTTNOWFJFUnBNSFJ4UjJGS05uSjRjM2NpTENKaGJHY2lPaUpTVXpJMU5pSXNJbmcxZENJNklpMUxTVE5ST1c1T1VqZGlVbTltZUcxbFdtOVljV0pJV2tkbGR5SXNJbXRwWkNJNklpMUxTVE5ST1c1T1VqZGlVbTltZUcxbFdtOVljV0pJV2tkbGR5SjkuZXlKaGRXUWlPaUl3TURBd01EQXdNeTB3TURBd0xUQXdNREF0WXpBd01DMHdNREF3TURBd01EQXdNREFpTENKcGMzTWlPaUpvZEhSd2N6b3ZMM04wY3k1M2FXNWtiM2R6TG01bGRDODRORFV4TVRWbE55MWhPV05pTFRSaFpHTXRZalprTXkweE5XRXhNV1F6TlRJNU5qSXZJaXdpYVdGMElqb3hOamt3TURBMk5EWXpMQ0p1WW1ZaU9qRTJPVEF3TURZME5qTXNJbVY0Y0NJNk1UWTVNREF4TVRVeU1Dd2lZV05qZENJNk1Dd2lZV055SWpvaU1TSXNJbUZwYnlJNklrRldVVUZ4THpoVVFVRkJRWFZZYzJsVmRUUlVlV3BaU1RCaVRUZFRVRzE2Y2tSRE4xcG9hMjExTW14WUwyNVdNMUUxT1dWVVdYSkZPV1JHT1RKeE1URXZiVUpyTUdzMVNFVm1VQzl3U0hWdWJrc3dhVGx0VGtaeWFIaFZUSEk0WTFseU5UTktRVVJ2ZFdNMVJGZHRkbEkyZG10dVEzRlZQU0lzSW1GdGNpSTZXeUp3ZDJRaUxDSnRabUVpWFN3aVlYQndYMlJwYzNCc1lYbHVZVzFsSWpvaVZsQklWaUlzSW1Gd2NHbGtJam9pWlRKak5EUmxZekF0WW1NeE1DMDBOV013TFRoalpEWXRaR1k0WXpKbU1UTXdPVFZsSWl3aVlYQndhV1JoWTNJaU9pSXhJaXdpYVdSMGVYQWlPaUoxYzJWeUlpd2lhWEJoWkdSeUlqb2lNVFF1TVRreExqTXpMalV6SWl3aWJtRnRaU0k2SWtMaHU1a2diY08wYmlCRFRsQk5JaXdpYjJsa0lqb2lNVEJrTjJWbVpETXRZbVptWmkwMFltVTFMVGt5TVRndE0ySXpZVFF6TVRZMVpXSXhJaXdpY0d4aGRHWWlPaUl6SWl3aWNIVnBaQ0k2SWpFd01ETXlNREF4UlVNd016QkRNemdpTENKeWFDSTZJakF1UVZoSlFUVjRWbEpvVFhWd00wVnhNakI0VjJoSVZGVndXV2ROUVVGQlFVRkJRVUZCZDBGQlFVRkJRVUZCUVVSRVFVbEJMaUlzSW5OamNDSTZJa05oYkdWdVpHRnljeTVTWldGa1YzSnBkR1VnUTJoaGJtNWxiQzVEY21WaGRHVWdRMmhoYm01bGJFMWxjM05oWjJVdVUyVnVaQ0JIY205MWNDNVNaV0ZrVjNKcGRHVXVRV3hzSUU5dWJHbHVaVTFsWlhScGJtZHpMbEpsWVdSWGNtbDBaU0J2Y0dWdWFXUWdjSEp2Wm1sc1pTQlVaV0Z0TGtOeVpXRjBaU0JVWldGdExsSmxZV1JDWVhOcFl5NUJiR3dnVkdWaGJVMWxiV0psY2k1U1pXRmtWM0pwZEdVdVFXeHNJRlZ6WlhJdVVtVmhaQ0JsYldGcGJDSXNJbk5wWjI1cGJsOXpkR0YwWlNJNld5SnJiWE5wSWwwc0luTjFZaUk2SWxwTmVWSjRVRTQzTFcwdFJsbEdaVEIwUzI0dGJWcG9SRlZpUTBWTmQxbEJOVFZSWDI5VGFWWjRZemdpTENKMFpXNWhiblJmY21WbmFXOXVYM05qYjNCbElqb2lRVk1pTENKMGFXUWlPaUk0TkRVeE1UVmxOeTFoT1dOaUxUUmhaR010WWpaa015MHhOV0V4TVdRek5USTVOaklpTENKMWJtbHhkV1ZmYm1GdFpTSTZJbk4wWkhObFFIWnVkV0V1WldSMUxuWnVJaXdpZFhCdUlqb2ljM1JrYzJWQWRtNTFZUzVsWkhVdWRtNGlMQ0oxZEdraU9pSjVkME5YYTJ4WmJrc3dWMlZzVlVsTGEwUXdPVUZCSWl3aWRtVnlJam9pTVM0d0lpd2lkMmxrY3lJNld5SmlOemxtWW1ZMFpDMHpaV1k1TFRRMk9Ea3RPREUwTXkwM05tSXhPVFJsT0RVMU1Ea2lYU3dpZUcxelgzTjBJanA3SW5OMVlpSTZJbUZXVWtzMldUbENUVkl5TFRSSk9HWXdkVzVGTFV4dVIyUTNTMmxMTVVVd05ERTBkazlRWHpWbGFFMGlmU3dpZUcxelgzUmpaSFFpT2pFME5Ea3hNelF5TkRKOS5vUlAtU3NMNkU1YzFINmZuejc4VGpJWEYxOXpCMHJzb0toN2JuUmdNdF9mZDVVaEplRG1TME56N1dDZkwxUEwteTlkQTRjVEFEZXZLVFlQX1hBbXNzMGdGM1VmekVZUmdiTmx1aUlQclJPay13X0hRalhZakN6cmV4RjhiOE0xb2pwOTRfYVhVTTZ6QUdSNHo2cXlTZHNwQWNpTDdxbzJRZHl0OENpcGpVRXJtd25zUDBqSkRZRi1ObE42cHFOdDNiUjdmY2FLQVRFX1c1UFFBRTEwTDRRVTdQLWNSNU02VGVfMWRRTmZZcUlDb3haWkpXZGNfR3ZuYUhTb0l6U2dpMF9SQmQ3ZEJzQ2ZiT3ltZlZjVDRjb3VCTmMwYVY2enFKX0tRbVhiSzhIY3p3S2hzeHdUVzR2SlVVWlNFZndjYUkwOVQ4Sk9pamo0OXBhRHY5MjdjNFEiLCJtc1JlZnJlc2hUb2tlbiI6IjAuQVhJQTV4VlJoTXVwM0VxMjB4V2hIVFVwWXNCT3hPSVF2TUJGak5iZmpDOFRDVjdEQUlBLkFnQUJBQUVBQUFELS1ETEEzVk83UXJkZGdKZzdXZXZyQWdEc193VUE5UDlVOTRtbWg4dXJZVWFLT3oyOGI5anpvb1hwTGdZTzhWOW1rMnVnNEpwRjdMc2NUNkxpNzFmcXBqZ2FqcERLM1hOTFI5UHdtOFU5QV9LWGR0dnVrX1piMnQzN0R4Nm5ENU93ZFkzZ0pBM1FsTjhsVFB4TWZ3SDQxTWtsWHhmdjJFcEJSRHQwbjBySGQ0UGtpdkdRSFJuUURSN3RxZjEyZzhwLTlzZ0VyTXRzVkI2TzRaTU5BeXFaUEZDb2xnOWpweUdMdFZLV2J4VUtMa3VEZVpTcHhSaWd5cWNrcllsQUtyVHNVd2xZRjdVOWlEbGJ3U3lHNDFfVGFjNjBUNlBsMzV3QlhIVTRaeVp1R0xBclFBemNNSzdvdUdvb3YtSWZvMndBNTFJcE5QQkdPbWhkaENWbWNvaXB0aFFaNmZDWHkyRXMzZ3VHMG1HQllBbG9JaWhyblcxUDNLcmswbks5UHFlNFdqc0h3aWczZ3E3NThoVWV2TzBYcFlqT1pPbldXbmxheG5vVTR3WE04WEl4MjI0ZVdfYmVaNFl6ME5MV01PLVNfTU9EX21nMEVuVWtlT1JmOU5SZDVMYjAyenBubDRNM0k5VVhHMDFfVGJWM0EzVHF0d083cVl1U3RQREpLSnNxc3NkYWZrTGZRc2RMSURfZG5vTlBfZnlYY200VG16LUM1V1FZVW00Rjk2Nm14NkxLT0hVcTdqNkRKWTRCVjQtbFFRQ3A4eUJmWGJ6NFY4WTJQRzh5MjB5b3Faa1NDUWVkTU5NX1M1SU9WY2JXRU95Y2Z1dklldGxhRmJQb3ZvQUU0UEYxczhZQ3hkb3gyQlcwcnpVaXNWVmZNS2VCeVY2TXZoUDlNdWh3Tk5RY0s4THhkMWR1MV9UTU50cDJPaXdmdmNsN05xVDh5T0xjYjVhTHpvbjZTY3c3SkZLeEtRaVRiWUVRQ3I5STZ5TmN6QldZT09nSnRxanF6aVZKeS1ZcmdZRmREMWxtQkxGNHA2Sm00cHpxRERwZkpuQ0NaNHNUUGJ0NjlmUVk1S0FuZkJHSW05V1ltQXIwYWt1aXZaNG4iLCJtc0FjY2Vzc1Rva2VuRXhwaXJlT24iOiIyMDIzLTA3LTIyVDA3OjM4OjM5LjAwMFoiLCJhY2Nlc3NUb2tlbiI6ImV5SmhiR2NpT2lKSVV6STFOaUlzSW5SNWNDSTZJa3BYVkNKOS5leUowWldGamFHVnlTV1FpT2lKRFRsQXdNaUlzSW01aGJXVWlPaUpDNGJ1WklHM0R0RzRnUTA1UVRTSXNJbVZ0WVdsc0lqb2ljM1JrYzJWQWRtNTFZUzVsWkhVdWRtNGlMQ0p0YzFKbFpuSmxjMmhVYjJ0bGJpSTZiblZzYkN3aWJYTkJZMk5sYzNOVWIydGxia1Y0Y0dseVpVOXVJam9pTWpBeU15MHdOeTB4TmxReE56b3hNem95TXk0d01EQmFJaXdpYlhOQlkyTnZkVzUwU1c1bWJ5STZJbnRjSW1odmJXVkJZMk52ZFc1MFNXUmNJanBjSWpFd1pEZGxabVF6TFdKbVptWXROR0psTlMwNU1qRTRMVE5pTTJFME16RTJOV1ZpTVM0NE5EVXhNVFZsTnkxaE9XTmlMVFJoWkdNdFlqWmtNeTB4TldFeE1XUXpOVEk1TmpKY0lpeGNJbVZ1ZG1seWIyNXRaVzUwWENJNlhDSnNiMmRwYmk1M2FXNWtiM2R6TG01bGRGd2lMRndpZEdWdVlXNTBTV1JjSWpwY0lqZzBOVEV4TldVM0xXRTVZMkl0TkdGa1l5MWlObVF6TFRFMVlURXhaRE0xTWprMk1sd2lMRndpZFhObGNtNWhiV1ZjSWpwY0luTjBaSE5sUUhadWRXRXVaV1IxTG5adVhDSXNYQ0pzYjJOaGJFRmpZMjkxYm5SSlpGd2lPbHdpTVRCa04yVm1aRE10WW1abVppMDBZbVUxTFRreU1UZ3RNMkl6WVRRek1UWTFaV0l4WENJc1hDSnVZVzFsWENJNlhDSkM0YnVaSUczRHRHNGdRMDVRVFZ3aUxGd2lhV1JVYjJ0bGJrTnNZV2x0YzF3aU9udGNJbUYxWkZ3aU9sd2laVEpqTkRSbFl6QXRZbU14TUMwME5XTXdMVGhqWkRZdFpHWTRZekptTVRNd09UVmxYQ0lzWENKcGMzTmNJanBjSW1oMGRIQnpPaTh2Ykc5bmFXNHViV2xqY205emIyWjBiMjVzYVc1bExtTnZiUzg0TkRVeE1UVmxOeTFoT1dOaUxUUmhaR010WWpaa015MHhOV0V4TVdRek5USTVOakl2ZGpJdU1Gd2lMRndpYVdGMFhDSTZNVFk0T1RVeU16TTVOQ3hjSW01aVpsd2lPakUyT0RrMU1qTXpPVFFzWENKbGVIQmNJam94TmpnNU5USTNNamswTEZ3aVlXbHZYQ0k2WENKQlYxRkJiUzg0VkVGQlFVRk1VVFIxWmxoT1pEUlRaazkzVVRKelZqbGhkak1yWlU1NlRYcEVjMmxDYjBkSFRYRlJhRkJrWVRabVV6TjVURWgxTjNkcVZ6RlpXRkF6T0drNWMzQnBjV1JpV2xaUGRWVkdhSFpEWWsxVk1rUnJkMUJ1VkRjelEyRkpZaTlIWjJwV1UxUTNkM056WlRsSGVIQlVVbEpLUkc0elF6ZFhOV01yT1VsWlkwOWxaRndpTEZ3aWJtRnRaVndpT2x3aVF1RzdtU0J0dzdSdUlFTk9VRTFjSWl4Y0ltOXBaRndpT2x3aU1UQmtOMlZtWkRNdFltWm1aaTAwWW1VMUxUa3lNVGd0TTJJellUUXpNVFkxWldJeFhDSXNYQ0p3Y21WbVpYSnlaV1JmZFhObGNtNWhiV1ZjSWpwY0luTjBaSE5sUUhadWRXRXVaV1IxTG5adVhDSXNYQ0p5YUZ3aU9sd2lNQzVCV0VsQk5YaFdVbWhOZFhBelJYRXlNSGhYYUVoVVZYQlpjMEpQZUU5SlVYWk5Ra1pxVG1KbWFrTTRWRU5XTjBSQlNVRXVYQ0lzWENKemRXSmNJanBjSW1GV1VrczJXVGxDVFZJeUxUUkpPR1l3ZFc1RkxVeHVSMlEzUzJsTE1VVXdOREUwZGs5UVh6VmxhRTFjSWl4Y0luUnBaRndpT2x3aU9EUTFNVEUxWlRjdFlUbGpZaTAwWVdSakxXSTJaRE10TVRWaE1URmtNelV5T1RZeVhDSXNYQ0oxZEdsY0lqcGNJa2xJYTBSUmNtRXhSMVZUTjBaZlJGRTJNbXhOUVVGY0lpeGNJblpsY2x3aU9sd2lNaTR3WENKOWZTSXNJblJ2WkdGNVJXMWhhV3hUWlc1MFEyOTFiblFpT2pBc0ltbGhkQ0k2TVRZNE9UVXlNemt5TXl3aVpYaHdJam94TmpnNU5USTNOVEl6ZlEuSlRLcWROeUoxem1GeVdIN2h6endocmxFTFc4eGlQZGRpTmR0MjF4SHZPQSIsIm1zQWNjb3VudEluZm8iOiJ7XCJob21lQWNjb3VudElkXCI6XCIxMGQ3ZWZkMy1iZmZmLTRiZTUtOTIxOC0zYjNhNDMxNjVlYjEuODQ1MTE1ZTctYTljYi00YWRjLWI2ZDMtMTVhMTFkMzUyOTYyXCIsXCJlbnZpcm9ubWVudFwiOlwibG9naW4ud2luZG93cy5uZXRcIixcInRlbmFudElkXCI6XCI4NDUxMTVlNy1hOWNiLTRhZGMtYjZkMy0xNWExMWQzNTI5NjJcIixcInVzZXJuYW1lXCI6XCJzdGRzZUB2bnVhLmVkdS52blwiLFwibG9jYWxBY2NvdW50SWRcIjpcIjEwZDdlZmQzLWJmZmYtNGJlNS05MjE4LTNiM2E0MzE2NWViMVwiLFwibmFtZVwiOlwiQuG7mSBtw7RuIENOUE1cIixcImlkVG9rZW5DbGFpbXNcIjp7XCJhdWRcIjpcImUyYzQ0ZWMwLWJjMTAtNDVjMC04Y2Q2LWRmOGMyZjEzMDk1ZVwiLFwiaXNzXCI6XCJodHRwczovL2xvZ2luLm1pY3Jvc29mdG9ubGluZS5jb20vODQ1MTE1ZTctYTljYi00YWRjLWI2ZDMtMTVhMTFkMzUyOTYyL3YyLjBcIixcImlhdFwiOjE2OTAwMDY0NjMsXCJuYmZcIjoxNjkwMDA2NDYzLFwiZXhwXCI6MTY5MDAxMDM2MyxcImFpb1wiOlwiQVdRQW0vOFRBQUFBUHgybEpjVFo2b2pvaWwraHRaVll2UW1wdjJESDJuZ1pIRmhmVGd6TTB4Y09hVTYrSnNLc1dzMG1pS2V2MC9reXpsdS83RS95L3l0MkwzOTBQL09MOHdxa3V6ZjVOT0Juc3JnNDdwU1RXZlRPdm5hdFBJcFB0OGVxalEyZ2NpdnRcIixcIm5hbWVcIjpcIkLhu5kgbcO0biBDTlBNXCIsXCJvaWRcIjpcIjEwZDdlZmQzLWJmZmYtNGJlNS05MjE4LTNiM2E0MzE2NWViMVwiLFwicHJlZmVycmVkX3VzZXJuYW1lXCI6XCJzdGRzZUB2bnVhLmVkdS52blwiLFwicmhcIjpcIjAuQVhJQTV4VlJoTXVwM0VxMjB4V2hIVFVwWXNCT3hPSVF2TUJGak5iZmpDOFRDVjdEQUlBLlwiLFwic3ViXCI6XCJhVlJLNlk5Qk1SMi00SThmMHVuRS1MbkdkN0tpSzFFMDQxNHZPUF81ZWhNXCIsXCJ0aWRcIjpcIjg0NTExNWU3LWE5Y2ItNGFkYy1iNmQzLTE1YTExZDM1Mjk2MlwiLFwidXRpXCI6XCJ5d0NXa2xZbkswV2VsVUlLa0QwOUFBXCIsXCJ2ZXJcIjpcIjIuMFwifX0iLCJ0b2RheUVtYWlsU2VudENvdW50IjowLCJjcmVhdGVkQXQiOiIyMDIzLTA3LTE0VDE1OjI0OjEyLjQxOVoiLCJ1cGRhdGVkQXQiOiIyMDIzLTA3LTIyVDA4OjQ4OjU4LjM0M1oiLCJpYXQiOjE2OTEyMjMzMjcsImV4cCI6MTY5MTIyNjkyN30.gNd8-JhLMGrhCws6Q4PX4RzBoUxaxxiOdvqt4dbcAq0"
 
-const tokenMS = "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6Ii1LSTNROW5OUjdiUm9meG1lWm9YcWJIWkdldyJ9.eyJhdWQiOiJlMmM0NGVjMC1iYzEwLTQ1YzAtOGNkNi1kZjhjMmYxMzA5NWUiLCJpc3MiOiJodHRwczovL2xvZ2luLm1pY3Jvc29mdG9ubGluZS5jb20vODQ1MTE1ZTctYTljYi00YWRjLWI2ZDMtMTVhMTFkMzUyOTYyL3YyLjAiLCJpYXQiOjE2OTAwMTk2ODcsIm5iZiI6MTY5MDAxOTY4NywiZXhwIjoxNjkwMDI0OTE1LCJhaW8iOiJBV1FBbS84VEFBQUEwMTl0NGcvcGFEOCtLWE5IbWVKOGx5dG9sZ0lKOTBKeFlLN3ZNdG1Ua0QxS3dwWHJhaVl3dlpIV09KSW5iemxwTnZhczdIQXlKTC9hMElwYUhwaFJiM1RxZ2ZIdGtJc2VWa09sNElrZzNLcFZnVjhpWlBDRzA2bmRhYjJtbEZNRCIsImF6cCI6IjVlM2NlNmMwLTJiMWYtNDI4NS04ZDRiLTc1ZWU3ODc4NzM0NiIsImF6cGFjciI6IjAiLCJuYW1lIjoiQuG7mSBtw7RuIENOUE0iLCJvaWQiOiIxMGQ3ZWZkMy1iZmZmLTRiZTUtOTIxOC0zYjNhNDMxNjVlYjEiLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJzdGRzZUB2bnVhLmVkdS52biIsInJoIjoiMC5BWElBNXhWUmhNdXAzRXEyMHhXaEhUVXBZc0JPeE9JUXZNQkZqTmJmakM4VENWN0RBSUEuIiwic2NwIjoiYWNjZXNzX2FzX3VzZXIiLCJzdWIiOiJhVlJLNlk5Qk1SMi00SThmMHVuRS1MbkdkN0tpSzFFMDQxNHZPUF81ZWhNIiwidGlkIjoiODQ1MTE1ZTctYTljYi00YWRjLWI2ZDMtMTVhMTFkMzUyOTYyIiwidXRpIjoiV2ZZVU1KbHNmRVdrQzU5RjlKY0NBQSIsInZlciI6IjIuMCJ9.m08qa6HYyiQ-SkCThp67DUapkeUX5fA-jBBiYlNZFWajidSRYEHNBPrl1XXNB7eHRWVc0tJ8aEtCxtCm6iLMXuw7TjF2T_9AUVX6LOJ7_vzLwArx5ZhWSgW-b9RLkuNI8qQezEIjixRVkvTnhSZQDfQcM2V1kAdmw8RVSdmnDW2st4kIKUTJWexFMjgRNEVttGThFEzGH-R5TtlOrmchWhoLQutITySU942hAi_IPk9wSbIhgDERbOwwuG2c7-iLY0MSiwnEoio5QGzn1bbJrQLKcc8JGF4kpxNwcmHDX9Ubt5ys3qMAqZufd2PyJ4lJTnCJduBsiyN6Ke71oxg7Rg"
 const mode = {
     IS_AUTHENCATED: 1,
     IS_REGISTER: 2
@@ -80,6 +80,7 @@ export const VnuaTeamsTab = () => {
             successCallback: function (result) {
                 microsoftTeams.app.getContext().then((context: any) => {
                     const tenantId = context.user.tenant.id;
+                    console.log('tenant: ',tenantId)
                     setLoading(true)
                     axios.post<object>(
                         API_URL + "api/msteam/me/",
@@ -96,6 +97,7 @@ export const VnuaTeamsTab = () => {
                         setLoading(false);
                         setUser(response.data.msTeamInfo)
                         setAppToken(response.data.accessToken)
+                        console.log('token: ',response.data.accessToken)
                         if (response.data.teacherId) {
                             setTeacherCode(response.data.teacherId)
                             setCurrentMode(mode.IS_AUTHENCATED)
@@ -117,13 +119,49 @@ export const VnuaTeamsTab = () => {
                 })
             },
             failureCallback: function (error) {
-                console.log("Error getting token: " + error);
+                console.log('fail')
             }
         }
         Promise.all([
             microsoftTeams.initialize(),
             microsoftTeams.authentication.getAuthToken(authTokenRequest),
         ])
+        // const tenantId = '845115e7-a9cb-4adc-b6d3-15a11d352962';
+        // setLoading(true)
+        // axios.post<object>(
+        //     API_URL + "api/msteam/me/",
+        //     {
+        //         token,
+        //         tenantId
+        //     },
+        //     {
+        //         headers: {
+        //             Accept: 'application/json',
+        //         },
+        //     },
+        // ).then((response: any) => {
+        //     setLoading(false);
+        //     setUser(response.data.msTeamInfo)
+        //     setAppToken(response.data.accessToken)
+        //     console.log(response.data.accessToken)
+        //     if (response.data.teacherId) {
+        //         setTeacherCode(response.data.teacherId)
+        //         setCurrentMode(mode.IS_AUTHENCATED)
+        //         callApiGetSemester(response.data.accessToken)
+        //     } else {
+        //         setCurrentMode(mode.IS_REGISTER)
+        //     }
+        // }).catch((e) => {
+        //     setLoading(false);
+        //     setCurrentMode(mode.IS_REGISTER)
+        //     Swal.fire({
+        //         icon: 'error',
+        //         text: 'Có lỗi xảy ra khi lấy thông tin người dùng',
+        //         showConfirmButton: false,
+        //         allowOutsideClick: false,
+        //         allowEscapeKey: false
+        //     })
+        // });
     }, []);
 
     useEffect(() => {
@@ -424,6 +462,7 @@ export const VnuaTeamsTab = () => {
                                                     <div className="tableMain">
                                                         <table cellSpacing={0}>
                                                             <tr>
+                                                                <th></th>
                                                                 <th>STT</th>
                                                                 <th>Tên nhóm lớp</th>
                                                                 <th>Tên môn học</th>
@@ -439,9 +478,19 @@ export const VnuaTeamsTab = () => {
                                                             {
                                                                 classes?.map((thisClass: any, index) => (
                                                                     <tr key={thisClass.id}>
+                                                                        <td>
+                                                                            <input type="checkbox"
+                                                                                   onChange={(e)=>{
+                                                                                       classes[index].hasMeetingEvent = e.target.value
+                                                                                   }}
+                                                                                   value={thisClass.hasMeetingEvent}/>
+                                                                        </td>
                                                                         <td>{index + 1}</td>
                                                                         <td className="txt-center">
                                                                             <Input value={thisClass.displayName}
+                                                                                   onChange={(e)=>{
+                                                                                       classes[index].displayName = e.target.value
+                                                                                   }}
                                                                                    className={"inputClass"}/>
                                                                         </td>
                                                                         <td>{thisClass.subjectName}</td>
