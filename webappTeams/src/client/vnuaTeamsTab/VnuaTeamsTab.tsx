@@ -18,7 +18,7 @@ import displayName = Design.displayName;
  * Implementation of the Vnua classes content page
  */
 
-const API_URL = "https://33b0-14-191-32-232.ngrok-free.app/";
+const API_URL = process.env.API_URL;
 
 const mode = {
     IS_AUTHENCATED: 1,
@@ -36,6 +36,7 @@ export const VnuaTeamsTab = () => {
     const [appToken, setAppToken] = useState<string>('');
     const [MsToken, setMsToken] = useState<string>('');
     const [user, setUser] = useState<any>({});
+    const [userId, setUserId] = useState<any>({});
     const [semesters, setSemesters] = useState<Semester[]>();
     const [currentSemester, setCurrentSemesters] = useState<number>();
     const [students, setStudents] = useState<Student[] | []>();
@@ -97,7 +98,9 @@ export const VnuaTeamsTab = () => {
                     ).then((response: any) => {
                         setLoading(false);
                         setUser(response.data.msTeamInfo)
+                        setUserId(response.data.userId)
                         setAppToken(response.data.accessToken)
+                        console.log(response.data)
                         if (response.data.teacherId) {
                             setTeacherCode(response.data.teacherId)
                             setCurrentMode(mode.IS_AUTHENCATED)
@@ -119,7 +122,11 @@ export const VnuaTeamsTab = () => {
                 })
             },
             failureCallback: function (error) {
-                console.log('fail')
+                console.log(error)
+                Swal.fire({
+                    icon: 'error',
+                    text: 'Có lỗi xảy ra khi lấy thông tin tài khoản!',
+                })
             }
         }
         Promise.all([
@@ -144,7 +151,7 @@ export const VnuaTeamsTab = () => {
         if (flg) {
             setLoading(true)
             const params = {
-                teacherId: "CNP02",
+                teacherId: teacherCode,
                 semesterId: currentSemester,
             }
             await axios.post<object>(
@@ -281,12 +288,6 @@ export const VnuaTeamsTab = () => {
         await setClasses(newClasses)
     }
 
-
-    useEffect(() => {
-        setTeacherCode("")
-        setErrTeacherCode("")
-    }, [curentMode]);
-
     useEffect(() => {
         setErrTeacherCode("");
     }, [teacherCode]);
@@ -310,10 +311,11 @@ export const VnuaTeamsTab = () => {
         if (flg) {
             const params = {
                 teacherId: teacherCode,
-                email: user.mail
+                email: user.mail,
+                userId: userId,
             }
             await axios.post<object>(
-                API_URL + "api/users/" + user.id,
+                API_URL + "api/users/" + userId,
                 params,
                 {
                     headers: {
@@ -386,7 +388,7 @@ export const VnuaTeamsTab = () => {
                                     </div>
                                     <div className={'profileInf'}>
                                         <div className={'inf'}>
-                                            <p>{user.displayName} - CNP02</p>
+                                            <p>{user.displayName} - {teacherCode}</p>
                                             <p>{user.mail}</p>
                                         </div>
                                     </div>
@@ -415,7 +417,9 @@ export const VnuaTeamsTab = () => {
                                                     <div className="tableMain">
                                                         <table cellSpacing={0}>
                                                             <tr>
-                                                                <th className={'tdCheckBox'}>Tạo lịch online</th>
+                                                                <th style={{
+                                                                    width: 'auto',
+                                                                }}>Tạo lịch online</th>
                                                                 <th>STT</th>
                                                                 <th>Tên nhóm lớp</th>
                                                                 <th>Tên môn học</th>
@@ -431,10 +435,13 @@ export const VnuaTeamsTab = () => {
                                                             {
                                                                 classes?.map((thisClass: any, index) => (
                                                                     <tr key={thisClass.id}>
-                                                                        <td>
+                                                                        <td
+                                                                            style={{
+                                                                            textAlign: 'center'
+                                                                        }}>
                                                                             <input
                                                                                 style={{
-                                                                                    width: 'auto'
+                                                                                    width: 'auto',
                                                                                 }}
                                                                                 type="checkbox"
                                                                                    onChange={(e)=>{
@@ -443,12 +450,17 @@ export const VnuaTeamsTab = () => {
                                                                                    value={thisClass.hasMeetingEvent}/>
                                                                         </td>
                                                                         <td>{index + 1}</td>
-                                                                        <td className="txt-center">
-                                                                            <input value={thisClass.displayName}
-                                                                                   onChange={(e)=>{
-                                                                                       classes[index].displayName = e.target.value
-                                                                                   }}
-                                                                                   className={"inputClass"}/>
+                                                                        <td className="txt-center ">
+                                                                            <div className="flex">
+                                                                                <input value={thisClass.displayName}
+                                                                                       onChange={(e)=>{
+                                                                                           classes[index].displayName = e.target.value
+                                                                                       }}
+                                                                                       className={"inputClass"}/>
+                                                                                <img
+                                                                                    src="../assets/pencial.svg" alt=""
+                                                                                    className="iconPencial"/>
+                                                                            </div>
                                                                         </td>
                                                                         <td>{thisClass.subjectName}</td>
                                                                         <td className="txt-center">{thisClass.classCodes}</td>
@@ -526,7 +538,7 @@ export const VnuaTeamsTab = () => {
                                                     </div>
                                                     <div className="buttonWrap">
                                                         <Button className={'buttonMain'} icon={<TeamCreateIcon/>}
-                                                                onClick={() => handleCreateGroup()} content="Tạo nhóm"
+                                                                onClick={() => handleCreateGroup()} content="Tạo nhóm lớp và lịch học online"
                                                                 primary/>
                                                     </div>
                                                 </>

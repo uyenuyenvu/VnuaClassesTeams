@@ -91,3 +91,6 @@ SET DEBUG=msteams
 ```
 
 If you are using Microsoft Azure to host your Microsoft Teams app, then you can add `DEBUG` as an Application Setting with the value of `msteams`.
+
+run npm start ở local
+sang ngrok run ngrok http 3007

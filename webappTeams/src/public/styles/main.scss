@@ -490,6 +490,7 @@ img.logo {
   width: 100vw;
   height: 100vh;
   background-color: #00000070;
+  z-index: 10000000;
 }
 .loader {
   border: 8px solid transparent;
@@ -514,4 +515,17 @@ img.logo {
 .tdCheckBox{
   width: max-content;
   text-align: center;
+}
+.inputClass{
+  border: none;
+  outline: none;
+  padding-bottom: 5px;
+}
+.iconPencial{
+  width: 20px;
+  height: 20px;
+}
+.flex{
+  display: flex;
+  
 }
