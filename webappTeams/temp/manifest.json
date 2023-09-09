@@ -5,18 +5,18 @@
   "version": "0.0.1",
   "packageName": "vnuaschedule",
   "developer": {
-    "name": "gyInformagy Facutyn",
-    "websiteUrl": "https://28c0-116-104-51-98.ngrok-free.app",
-    "privacyUrl": "https://28c0-116-104-51-98.ngrok-free.app/privacy.html",
-    "termsOfUseUrl": "https://28c0-116-104-51-98.ngrok-free.app/tou.html"
+    "name": "ST",
+    "websiteUrl": "https://28c0-116-104-51-98.ngrok-free.app/",
+    "privacyUrl": "https://28c0-116-104-51-98.ngrok-free.app//privacy.html",
+    "termsOfUseUrl": "https://28c0-116-104-51-98.ngrok-free.app//tou.html"
   },
   "name": {
     "short": "VnuaTeams",
     "full": "VnuaTeams"
   },
   "description": {
-    "short": "TODO: add short description here",
-    "full": "TODO: add full description here"
+    "short": "Phần mềm tạo nhóm lớp",
+    "full": "Phần mềm tự động tạo nhóm lớp và lịch học trên MS Teams"
   },
   "icons": {
     "outline": "icon-outline.png",
@@ -28,7 +28,7 @@
     {
       "entityId": "30b71a0c-36fb-4eea-bd18-656bb54925d2",
       "name": "VnuaTeams Tab",
-      "contentUrl": "https://28c0-116-104-51-98.ngrok-free.app/vnuaTeamsTab/?name={loginHint}&tenant={tid}&theme={theme}",
+      "contentUrl": "https://28c0-116-104-51-98.ngrok-free.app//vnuaTeamsTab/?name={loginHint}&tenant={tid}&theme={theme}",
       "scopes": [
         "personal"
       ]
@@ -42,11 +42,11 @@
     "messageTeamMembers"
   ],
   "validDomains": [
-    "28c0-116-104-51-98.ngrok-free.app"
+    "28c0-116-104-51-98.ngrok-free.app/"
   ],
   "showLoadingIndicator": false,
   "webApplicationInfo": {
     "id": "e2c44ec0-bc10-45c0-8cd6-df8c2f13095e",
-    "resource": "api://28c0-116-104-51-98.ngrok-free.app/e2c44ec0-bc10-45c0-8cd6-df8c2f13095e"
+    "resource": "api://28c0-116-104-51-98.ngrok-free.app//e2c44ec0-bc10-45c0-8cd6-df8c2f13095e"
   }
 }
