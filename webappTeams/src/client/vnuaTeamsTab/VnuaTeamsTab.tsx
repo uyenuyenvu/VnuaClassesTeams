@@ -1,11 +1,5 @@
 import * as React from 'react';
-import {
-  Provider,
-  Button,
-  Input,
-  Dialog,
-  Design,
-} from '@fluentui/react-northstar';
+import { Provider, Button, Input, Dialog } from '@fluentui/react-northstar';
 import { useState, useEffect } from 'react';
 import { useTeams } from 'msteams-react-base-component';
 import * as microsoftTeams from '@microsoft/teams-js';
@@ -17,19 +11,20 @@ import axios from 'axios';
 import { Provider as ReduxProvider } from 'react-redux/es/exports';
 import { store } from '../client';
 import _ from 'lodash';
-import displayName = Design.displayName;
+import * as msTeamsService from './ms-teams.service';
 
 /**
  * Implementation of the Vnua classes content page
  */
 
-const API_URL = 'https://d69b-220-231-107-156.ngrok-free.app/';
+const API_URL = 'https://st-ms-teams.loca.lt/';
+
+let msToken = '';
 
 const mode = {
   IS_AUTHENCATED: 1,
   IS_REGISTER: 2,
 };
-let tenantId = '';
 export const VnuaTeamsTab = () => {
   const [{ inTeams, theme }] = useTeams();
   const [entityId, setEntityId] = useState<string | undefined>();
@@ -39,9 +34,8 @@ export const VnuaTeamsTab = () => {
   const [countError, setCountError] = useState<number>(0);
   const [errTeacherCode, setErrTeacherCode] = useState<string>('');
   const [appToken, setAppToken] = useState<string>('');
-  const [MsToken, setMsToken] = useState<string>('');
   const [user, setUser] = useState<any>({});
-  const [userId, setUserId] = useState<any>({});
+  const [userId, setUserId] = useState<any>('');
   const [semesters, setSemesters] = useState<Semester[]>();
   const [currentSemester, setCurrentSemesters] = useState<number>();
   const [students, setStudents] = useState<Student[] | []>();
@@ -64,14 +58,14 @@ export const VnuaTeamsTab = () => {
   const callApiGetSemester = async (token) => {
     setLoading(true);
     await axios
-      .get<object>(API_URL + 'api/vnua/semesters/', {
+      .get(API_URL + 'api/vnua/semesters/', {
         headers: {
           Accept: 'application/json',
           Authorization: `Bearer ` + token,
         },
       })
-      .then((response: any) => {
-        setSemesters(response.data);
+      .then(({ data: semesters }) => {
+        setSemesters(semesters);
         setLoading(false);
       })
       .catch((e) => {
@@ -83,28 +77,24 @@ export const VnuaTeamsTab = () => {
       });
   };
 
-  const getAuthToken = (): Promise<string> => {
-    return new Promise((resolve, reject) => {
-      microsoftTeams.authentication.getAuthToken({
-        successCallback: resolve,
-        failureCallback: reject,
-      });
-    });
-  };
-
   useEffect(() => {
-    async () => {
+    (async () => {
       microsoftTeams.initialize();
       try {
-        const authToken = await getAuthToken();
-        const context = await microsoftTeams.app.getContext();
-        tenantId = context.user?.tenant?.id as string;
+        const {
+          accessToken: msAccessToken,
+          refreshToken: msRefreshToken,
+          account,
+        } = await msTeamsService.getTokens();
+        msToken = msAccessToken;
 
         const { data } = await axios.post<any>(
           API_URL + 'api/msteam/me/',
           {
-            token: authToken,
-            tenantId,
+            accessToken: msAccessToken,
+            refreshToken: msRefreshToken,
+            email: account.username,
+            name: account.name
           },
           {
             headers: {
@@ -113,6 +103,7 @@ export const VnuaTeamsTab = () => {
           }
         );
 
+        console.log('data: ', data);
         setLoading(false);
         setUser(data.msTeamInfo);
         setUserId(data.userId);
@@ -138,7 +129,7 @@ export const VnuaTeamsTab = () => {
           allowEscapeKey: false,
         });
       }
-    };
+    })();
   }, []);
 
   useEffect(() => {
@@ -255,8 +246,7 @@ export const VnuaTeamsTab = () => {
       });
       item.users = lstUser;
       let itemParams = {
-        token: MsToken,
-        tenantId,
+        token: msToken,
         data: [item],
       };
       try {
