@@ -74,12 +74,3 @@ express.set('port', port);
 http.createServer(express).listen(port, () => {
   log(`Server running on ${port}`);
 });
-
-(async () => {
-  const tunnel = await localtunnel({
-    port: Number(port),
-    subdomain: 'st-ms-teams-web',
-  });
-
-  console.log('localtunnel URL: ', tunnel.url);
-})();
