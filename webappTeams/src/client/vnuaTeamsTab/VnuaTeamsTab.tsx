@@ -18,17 +18,19 @@ import { Provider as ReduxProvider } from 'react-redux/es/exports';
 import { store } from '../client';
 import _ from 'lodash';
 import displayName = Design.displayName;
+import {getTokens} from './script'
 
 /**
  * Implementation of the Vnua classes content page
  */
 
-const API_URL = 'https://d69b-220-231-107-156.ngrok-free.app/';
+const API_URL = process.env.API_URL;
 
 const mode = {
   IS_AUTHENCATED: 1,
   IS_REGISTER: 2,
 };
+
 let tenantId = '';
 export const VnuaTeamsTab = () => {
   const [{ inTeams, theme }] = useTeams();
@@ -93,52 +95,57 @@ export const VnuaTeamsTab = () => {
   };
 
   useEffect(() => {
-    async () => {
-      microsoftTeams.initialize();
-      try {
-        const authToken = await getAuthToken();
-        const context = await microsoftTeams.app.getContext();
-        tenantId = context.user?.tenant?.id as string;
+      (
+          async () => {
+              microsoftTeams.initialize();
+              try {
+                  const { authToken, tenantId, email, name } =
+                      await getTokens();
 
-        const { data } = await axios.post<any>(
-          API_URL + 'api/msteam/me/',
-          {
-            token: authToken,
-            tenantId,
-          },
-          {
-            headers: {
-              Accept: 'application/json',
-            },
+                  const { data } = await axios.post<any>(
+                      API_URL + 'api/msteam/me/',
+                      {
+                          authToken,
+                          tenantId,
+                          email,
+                          name,
+                      },
+                      {
+                          headers: {
+                              Accept: 'application/json',
+                          },
+                      }
+                  );
+
+                  setLoading(false);
+                  setUser({ displayName: name, mail: email });
+                  setUserId(data.userId);
+                  localStorage.setItem('tenantId', tenantId);
+                  localStorage.setItem('authToken', authToken);
+                  setAppToken(data.accessToken);
+                  console.log(data);
+
+                  if (data.teacherId) {
+                      setTeacherCode(data.teacherId);
+                      setCurrentMode(mode.IS_AUTHENCATED);
+                      callApiGetSemester(data.accessToken);
+                  } else {
+                      setCurrentMode(mode.IS_REGISTER);
+                  }
+              } catch (error) {
+                  console.error(error);
+                  setLoading(false);
+                  setCurrentMode(mode.IS_REGISTER);
+                  Swal.fire({
+                      icon: 'error',
+                      text: 'Có lỗi xảy ra khi lấy thông tin người dùng',
+                      showConfirmButton: false,
+                      allowOutsideClick: false,
+                      allowEscapeKey: false,
+                  });
+              }
           }
-        );
-
-        setLoading(false);
-        setUser(data.msTeamInfo);
-        setUserId(data.userId);
-        setAppToken(data.accessToken);
-        console.log(data);
-
-        if (data.teacherId) {
-          setTeacherCode(data.teacherId);
-          setCurrentMode(mode.IS_AUTHENCATED);
-          callApiGetSemester(data.accessToken);
-        } else {
-          setCurrentMode(mode.IS_REGISTER);
-        }
-      } catch (error) {
-        console.error(error);
-        setLoading(false);
-        setCurrentMode(mode.IS_REGISTER);
-        Swal.fire({
-          icon: 'error',
-          text: 'Có lỗi xảy ra khi lấy thông tin người dùng',
-          showConfirmButton: false,
-          allowOutsideClick: false,
-          allowEscapeKey: false,
-        });
-      }
-    };
+      )()
   }, []);
 
   useEffect(() => {
@@ -229,7 +236,7 @@ export const VnuaTeamsTab = () => {
     const semesterText = semesters?.filter((item) => {
       return String(item.id) === String(currentSemester);
     })[0].name;
-    const subjectGroup = `0${data.subjectGroup}`;
+    const subjectGroup = data.subjectGroup < 10 ? `0${data.subjectGroup}` : data.subjectGroup;
     const semester = String(semesterText).slice(7, 8);
     const semesterStartYear = String(semesterText).slice(21, 23);
     const semesterEndYear = String(semesterText).slice(26, 28);
@@ -255,8 +262,8 @@ export const VnuaTeamsTab = () => {
       });
       item.users = lstUser;
       let itemParams = {
-        token: MsToken,
-        tenantId,
+        token: localStorage.getItem('authToken'),
+        tenantId: localStorage.getItem('tenantId'),
         data: [item],
       };
       try {
@@ -326,6 +333,7 @@ export const VnuaTeamsTab = () => {
         .then(() => {
           Swal.fire('Đăng ký mã giảng viên thành công');
           setCurrentMode(mode.IS_AUTHENCATED);
+          callApiGetSemester(appToken);
         })
         .catch(() => {
           Swal.fire({
@@ -396,6 +404,12 @@ export const VnuaTeamsTab = () => {
                       {user.displayName} - {teacherCode}
                     </p>
                     <p>{user.mail}</p>
+                      <Button
+                          className={'buttonMain'}
+                          primary
+                          content='Cập nhật mã giảng viên'
+                          onClick={() => setCurrentMode(mode.IS_REGISTER)}
+                      />
                   </div>
                 </div>
               </div>
@@ -435,40 +449,24 @@ export const VnuaTeamsTab = () => {
                       <div className='tableMain'>
                         <table cellSpacing={0}>
                           <tr>
-                            <th
-                              style={{
-                                width: 'auto',
-                              }}
-                            >
-                              Tạo lịch online
-                            </th>
-                            <th>STT</th>
+                              <th>STT</th>
                             <th>Tên nhóm lớp</th>
                             <th>Tên môn học</th>
                             <th>Tên lớp</th>
                             <th>Nhóm</th>
+
+                              <th
+                                  style={{
+                                      width: 'auto',
+                                  }}
+                              >
+                                  Tạo lịch online
+                              </th>
                             <th></th>
                             {addClassDone && <th>Trạng thái</th>}
                           </tr>
                           {classes?.map((thisClass: any, index) => (
                             <tr key={thisClass.id}>
-                              <td
-                                style={{
-                                  textAlign: 'center',
-                                }}
-                              >
-                                <input
-                                  style={{
-                                    width: 'auto',
-                                  }}
-                                  type='checkbox'
-                                  onChange={(e) => {
-                                    classes[index].hasMeetingEvent =
-                                      e.target.value;
-                                  }}
-                                  value={thisClass.hasMeetingEvent}
-                                />
-                              </td>
                               <td>{index + 1}</td>
                               <td className='txt-center '>
                                 <div className='flex'>
@@ -491,9 +489,28 @@ export const VnuaTeamsTab = () => {
                               <td className='txt-center'>
                                 {thisClass.classCodes}
                               </td>
+
                               <td className='txt-center'>
                                 {thisClass.subjectGroup}
                               </td>
+
+                                <td
+                                    style={{
+                                        textAlign: 'center',
+                                    }}
+                                >
+                                    <input
+                                        style={{
+                                            width: 'auto',
+                                        }}
+                                        type='checkbox'
+                                        onChange={(e) => {
+                                            classes[index].hasMeetingEvent =
+                                                e.target.value;
+                                        }}
+                                        value={thisClass.hasMeetingEvent}
+                                    />
+                                </td>
                               <td>
                                 <Dialog
                                   confirmButton='Đóng'
