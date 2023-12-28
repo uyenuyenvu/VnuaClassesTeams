@@ -1,52 +1,45 @@
 {
-  "$schema": "https://developer.microsoft.com/en-us/json-schemas/teams/v1.13/MicrosoftTeams.schema.json",
-  "manifestVersion": "1.13",
-  "id": "{{APPLICATION_ID}}",
-  "version": "{{VERSION}}",
-  "packageName": "{{PACKAGE_NAME}}",
-  "developer": {
-    "name": "Vũ Thị Uyên - Nguyễn Hoàng Nam - Đỗ Tiến Toàn",
-    "websiteUrl": "https://{{PUBLIC_HOSTNAME}}",
-    "privacyUrl": "https://{{PUBLIC_HOSTNAME}}/privacy.html",
-    "termsOfUseUrl": "https://{{PUBLIC_HOSTNAME}}/tou.html"
-  },
-  "name": {
-    "short": "VnuaTeams",
-    "full": "VnuaTeams"
-  },
-  "description": {
-    "short": "TODO: add short description here",
-    "full": "TODO: add full description here"
-  },
-  "icons": {
-    "outline": "icon-outline.png",
-    "color": "icon-color.png"
-  },
-  "accentColor": "#D85028",
-  "configurableTabs": [],
-  "staticTabs": [
-    {
-      "entityId": "30b71a0c-36fb-4eea-bd18-656bb54925d2",
-      "name": "VnuaTeams Tab",
-      "contentUrl": "https://{{PUBLIC_HOSTNAME}}/vnuaTeamsTab/?name={loginHint}&tenant={tid}&theme={theme}",
-      "scopes": [
-        "personal"
-      ]
+    "$schema": "https://developer.microsoft.com/en-us/json-schemas/teams/v1.13/MicrosoftTeams.schema.json",
+    "manifestVersion": "1.13",
+    "id": "{{APPLICATION_ID}}",
+    "version": "{{VERSION}}",
+    "packageName": "{{PACKAGE_NAME}}",
+    "developer": {
+        "name": "Uyên - Nam - Toàn (K63CNPM)",
+        "websiteUrl": "https://{{PUBLIC_HOSTNAME}}",
+        "privacyUrl": "https://{{PUBLIC_HOSTNAME}}/privacy.html",
+        "termsOfUseUrl": "https://{{PUBLIC_HOSTNAME}}/tou.html"
+    },
+    "name": {
+        "short": "VnuaTeams",
+        "full": "VnuaTeams"
+    },
+    "description": {
+        "short": "Phần mềm tự động tạo nhóm MS Teams",
+        "full": "Phần mềm tự động tạo nhóm lớp (và lịch học nếu có) trên Microsoft Teams Teams của giảng viên Học viện Nông nghiệp Việt Nam dựa vào thời khoá biểu trên trang Đào tạo"
+    },
+    "icons": {
+        "outline": "icon-outline.png",
+        "color": "icon-color.png"
+    },
+    "accentColor": "#D85028",
+    "configurableTabs": [],
+    "staticTabs": [
+        {
+            "entityId": "30b71a0c-36fb-4eea-bd18-656bb54925d2",
+            "name": "VnuaTeams Tab",
+            "contentUrl": "https://{{PUBLIC_HOSTNAME}}/vnuaTeamsTab/?name={loginHint}&tenant={tid}&theme={theme}",
+            "scopes": ["personal"]
+        }
+    ],
+    "bots": [],
+    "connectors": [],
+    "composeExtensions": [],
+    "permissions": ["identity", "messageTeamMembers"],
+    "validDomains": ["{{PUBLIC_HOSTNAME}}"],
+    "showLoadingIndicator": false,
+    "webApplicationInfo": {
+        "id": "e2c44ec0-bc10-45c0-8cd6-df8c2f13095e",
+        "resource": "api://{{PUBLIC_HOSTNAME}}/e2c44ec0-bc10-45c0-8cd6-df8c2f13095e"
     }
-  ],
-  "bots": [],
-  "connectors": [],
-  "composeExtensions": [],
-  "permissions": [
-    "identity",
-    "messageTeamMembers"
-  ],
-  "validDomains": [
-    "{{PUBLIC_HOSTNAME}}"
-  ],
-  "showLoadingIndicator": false,
-  "webApplicationInfo": {
-    "id": "e2c44ec0-bc10-45c0-8cd6-df8c2f13095e",
-    "resource": "api://{{PUBLIC_HOSTNAME}}/e2c44ec0-bc10-45c0-8cd6-df8c2f13095e"
-  }
 }
