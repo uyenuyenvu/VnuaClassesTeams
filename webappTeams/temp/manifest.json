@@ -1,52 +1,45 @@
 {
-  "$schema": "https://developer.microsoft.com/en-us/json-schemas/teams/v1.13/MicrosoftTeams.schema.json",
-  "manifestVersion": "1.13",
-  "id": "4e6310f0-283f-11ee-b679-678465f4fd00",
-  "version": "0.0.1",
-  "packageName": "vnuaschedule",
-  "developer": {
-    "name": "UyenVT-NamNH-ToanDT",
-    "websiteUrl": "https://43a9-2402-800-611a-e06e-2947-bd5f-ab4c-3709.ngrok-free.app",
-    "privacyUrl": "https://43a9-2402-800-611a-e06e-2947-bd5f-ab4c-3709.ngrok-free.app/privacy.html",
-    "termsOfUseUrl": "https://43a9-2402-800-611a-e06e-2947-bd5f-ab4c-3709.ngrok-free.app/tou.html"
-  },
-  "name": {
-    "short": "VnuaTeams",
-    "full": "VnuaTeams"
-  },
-  "description": {
-    "short": "TODO: add short description here",
-    "full": "TODO: add full description here"
-  },
-  "icons": {
-    "outline": "icon-outline.png",
-    "color": "icon-color.png"
-  },
-  "accentColor": "#D85028",
-  "configurableTabs": [],
-  "staticTabs": [
-    {
-      "entityId": "30b71a0c-36fb-4eea-bd18-656bb54925d2",
-      "name": "VnuaTeams Tab",
-      "contentUrl": "https://43a9-2402-800-611a-e06e-2947-bd5f-ab4c-3709.ngrok-free.app/vnuaTeamsTab/?name={loginHint}&tenant={tid}&theme={theme}",
-      "scopes": [
-        "personal"
-      ]
+    "$schema": "https://developer.microsoft.com/en-us/json-schemas/teams/v1.13/MicrosoftTeams.schema.json",
+    "manifestVersion": "1.13",
+    "id": "4e6310f0-283f-11ee-b679-678465f4fd01",
+    "version": "1.0.0",
+    "packageName": "vnuaschedule",
+    "developer": {
+        "name": "Uyên - Nam - Toàn (K63CNPM)",
+        "websiteUrl": "https://709e-14-191-165-172.ngrok-free.app",
+        "privacyUrl": "https://709e-14-191-165-172.ngrok-free.app/privacy.html",
+        "termsOfUseUrl": "https://709e-14-191-165-172.ngrok-free.app/tou.html"
+    },
+    "name": {
+        "short": "VnuaTeams",
+        "full": "VnuaTeams"
+    },
+    "description": {
+        "short": "Phần mềm tự động tạo nhóm MS Teams",
+        "full": "Phần mềm tự động tạo nhóm lớp (và lịch học nếu có) trên Microsoft Teams Teams của giảng viên Học viện Nông nghiệp Việt Nam dựa vào thời khoá biểu trên trang Đào tạo"
+    },
+    "icons": {
+        "outline": "icon-outline.png",
+        "color": "icon-color.png"
+    },
+    "accentColor": "#D85028",
+    "configurableTabs": [],
+    "staticTabs": [
+        {
+            "entityId": "30b71a0c-36fb-4eea-bd18-656bb54925d2",
+            "name": "VnuaTeams Tab",
+            "contentUrl": "https://709e-14-191-165-172.ngrok-free.app/vnuaTeamsTab/?name={loginHint}&tenant={tid}&theme={theme}",
+            "scopes": ["personal"]
+        }
+    ],
+    "bots": [],
+    "connectors": [],
+    "composeExtensions": [],
+    "permissions": ["identity", "messageTeamMembers"],
+    "validDomains": ["709e-14-191-165-172.ngrok-free.app"],
+    "showLoadingIndicator": false,
+    "webApplicationInfo": {
+        "id": "e2c44ec0-bc10-45c0-8cd6-df8c2f13095e",
+        "resource": "api://709e-14-191-165-172.ngrok-free.app/e2c44ec0-bc10-45c0-8cd6-df8c2f13095e"
     }
-  ],
-  "bots": [],
-  "connectors": [],
-  "composeExtensions": [],
-  "permissions": [
-    "identity",
-    "messageTeamMembers"
-  ],
-  "validDomains": [
-    "43a9-2402-800-611a-e06e-2947-bd5f-ab4c-3709.ngrok-free.app"
-  ],
-  "showLoadingIndicator": false,
-  "webApplicationInfo": {
-    "id": "e2c44ec0-bc10-45c0-8cd6-df8c2f13095e",
-    "resource": "api://43a9-2402-800-611a-e06e-2947-bd5f-ab4c-3709.ngrok-free.app/e2c44ec0-bc10-45c0-8cd6-df8c2f13095e"
-  }
 }
