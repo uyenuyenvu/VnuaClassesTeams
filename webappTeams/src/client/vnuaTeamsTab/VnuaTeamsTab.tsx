@@ -1,6 +1,4 @@
-import {
-    Provider
-} from '@fluentui/react-northstar';
+import { Provider } from '@fluentui/react-northstar';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { useTeams } from 'msteams-react-base-component';
 import * as React from 'react';
@@ -20,10 +18,14 @@ enum APP_MODE {
 
 function Main() {
     const [appMode, setAppMode] = useState<APP_MODE>(APP_MODE.IS_REGISTER);
-    const { currentUser, isFetchingCurrentUser, fetchingCurrentUserError } =
-        useMsTeams({
-            onSSOSuccess: () => setAppMode(APP_MODE.IS_AUTHENCATED),
-        });
+    const {
+        currentUser,
+        isFetchingCurrentUser,
+        fetchingCurrentUserError,
+        setTeacherId,
+    } = useMsTeams({
+        onSSOSuccess: () => setAppMode(APP_MODE.IS_AUTHENCATED),
+    });
 
     const { isLoading: isUpdatingUser, mutateAsync: updateUserAsync } =
         useUpdateUser();
@@ -43,7 +45,17 @@ function Main() {
                 text: 'Có lỗi xảy ra khi đăng nhập',
             });
         } else {
-            await updateUserAsync({ ...currentUser, teacherId });
+            try {
+                await updateUserAsync({ ...currentUser, teacherId });
+            } catch (error) {
+                Swal.fire({
+                    icon: 'error',
+                    text: 'Có lỗi xảy ra khi đăng nhập',
+                });
+                return;
+            }
+
+            setTeacherId(teacherId);
             setAppMode(APP_MODE.IS_AUTHENCATED);
         }
     };

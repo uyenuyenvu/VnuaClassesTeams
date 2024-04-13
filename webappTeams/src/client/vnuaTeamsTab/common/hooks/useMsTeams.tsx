@@ -33,7 +33,7 @@ export function useMsTeams({ onSSOSuccess }) {
                 }));
                 setTenantId(tenantId);
                 setAuthToken(authToken);
-                setAppToken(data.accessToken)
+                setAppToken(data.accessToken);
 
                 if (data.teacherId) {
                     onSSOSuccess();
@@ -46,5 +46,12 @@ export function useMsTeams({ onSSOSuccess }) {
         })();
     }, []);
 
-    return { currentUser, isFetchingCurrentUser, fetchingCurrentUserError };
+    return {
+        currentUser,
+        isFetchingCurrentUser,
+        fetchingCurrentUserError,
+        setTeacherId(teacherId: string) {
+            setCurrentUser({ ...(currentUser as User), teacherId });
+        },
+    };
 }

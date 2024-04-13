@@ -46,7 +46,8 @@ export function Login({ onLogin }: LoginProps) {
                                     onChange={(e) => {
                                         setErrTeacherCode('');
                                         setTeacherCode(
-                                            e.currentTarget.nodeValue as string
+                                            // @ts-ignore
+                                            e.currentTarget.value as string
                                         );
                                     }}
                                 />
