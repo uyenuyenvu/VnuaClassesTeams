@@ -130,19 +130,24 @@ export function TeachingClassTable({
             </div>
             <div className='buttonWrap'>
                 <Button
+                    primary
                     style={{ marginRight: '10px' }}
                     className={'buttonMain'}
                     icon={<DownloadIcon />}
                     onClick={() => onDownloadClasses(teachingClasses)}
                     content='Tải thời khoá biểu dạng JSON'
-                    primary
                 />
                 <Button
+                    primary
                     className={'buttonMain'}
                     icon={<TeamCreateIcon />}
                     onClick={onCreateClasses}
-                    content='Tạo nhóm lớp và lịch học online'
-                    primary
+                    content={
+                        'Tạo nhóm lớp' +
+                        (teachingClasses.some((item) => item.hasOnlineMeeting)
+                            ? ' và lịch học online'
+                            : '')
+                    }
                 />
             </div>
         </>

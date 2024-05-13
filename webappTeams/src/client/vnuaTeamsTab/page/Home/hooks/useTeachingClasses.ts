@@ -5,11 +5,12 @@ import {
     TeachingClass,
 } from '../../../types/teaching-class';
 import { StringUtil } from '../../../util/string-util';
+import { AxiosError } from 'axios';
 
 export function useFetchingClasses() {
     const [teachingClasses, setTeachingClasses] = useState<TeachingClass[]>([]);
     const [isLoading, setIsLoading] = useState<boolean>(false);
-    const [error, setError] = useState<any>(null);
+    const [error, setError] = useState<Error | AxiosError | null>(null);
 
     return {
         isLoading,

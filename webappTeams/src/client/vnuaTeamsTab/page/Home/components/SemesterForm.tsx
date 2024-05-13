@@ -20,13 +20,15 @@ function SemesterSelector({
         isLoading: isFetchingSemesters,
     } = useSemesters();
 
-    if (fetchingSemesterError) {
-        console.error(fetchingSemesterError);
-        Swal.fire({
-            icon: 'error',
-            text: 'Có lỗi xảy ra khi lấy danh sách học kì',
-        });
-    }
+    React.useEffect(() => {
+        if (fetchingSemesterError) {
+            console.error(fetchingSemesterError);
+            Swal.fire({
+                icon: 'error',
+                text: 'Có lỗi xảy ra khi lấy danh sách học kì',
+            });
+        }
+    }, [fetchingSemesterError]);
 
     return (
         <>

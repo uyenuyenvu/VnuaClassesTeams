@@ -44,13 +44,17 @@ export function Home({ user, onClickChangeTeacherId }: HomeProps) {
         getTeachingClasses(user.teacherId, semesterId, semesterCode);
     };
 
-    if (getTeachingClassesError) {
-        console.error(getTeachingClassesError);
-        Swal.fire({
-            icon: 'error',
-            text: 'Có lỗi xảy ra khi lấy lịch dạy',
-        });
-    }
+    React.useEffect(() => {
+        if (getTeachingClassesError) {
+            console.error(getTeachingClassesError);
+            Swal.fire({
+                icon: 'error',
+                text:
+                    getTeachingClassesError.message ||
+                    'Có lỗi xảy ra khi lấy lịch dạy',
+            });
+        }
+    }, [getTeachingClassesError]);
 
     const downloadClassesAsJson = (teachingClasses: TeachingClass[]) => {
         const semester = teachingClasses[0].semester;
@@ -59,6 +63,8 @@ export function Home({ user, onClickChangeTeacherId }: HomeProps) {
             `Lịch dạy của ${user.teacherId} HK${semester.index}-${semester.startYear}-${semester.endYear}.json`
         );
     };
+
+    console.log({ teachingClasses });
 
     const createClasses = async () => {
         setIsCreatingClasses(true);
