@@ -111,7 +111,7 @@ export function Home({ user, onClickChangeTeacherId }: HomeProps) {
                     default:
                         updateTeachingClassCreateStatus(item, {
                             type: 'error',
-                            message: 'Đã có lỗi xảy ra',
+                            message: 'Thất bại',
                         });
                 }
             }
