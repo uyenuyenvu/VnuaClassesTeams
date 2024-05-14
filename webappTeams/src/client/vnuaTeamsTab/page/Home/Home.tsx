@@ -95,24 +95,22 @@ export function Home({ user, onClickChangeTeacherId }: HomeProps) {
                 updateTeachingClassCreateStatus(item, { type: 'success' });
             } catch (error) {
                 const statusCode = error.response?.status;
-                switch (statusCode) {
-                    case 403:
-                        Swal.fire({
-                            icon: 'error',
-                            text: 'Đã hết phiên làm việc. Vui lòng đăng nhập lại',
-                        });
-                        return;
-                    case 409:
-                        updateTeachingClassCreateStatus(item, {
-                            type: 'error',
-                            message: 'Nhóm lớp đã tồn tại',
-                        });
-                        return;
-                    default:
-                        updateTeachingClassCreateStatus(item, {
-                            type: 'error',
-                            message: 'Thất bại',
-                        });
+                if (statusCode === 403) {
+                    Swal.fire({
+                        icon: 'error',
+                        text: 'Đã hết phiên làm việc. Vui lòng đăng nhập lại',
+                    });
+                    return;
+                } else if (statusCode === 409) {
+                    updateTeachingClassCreateStatus(item, {
+                        type: 'error',
+                        message: 'Nhóm lớp đã tồn tại',
+                    });
+                } else {
+                    updateTeachingClassCreateStatus(item, {
+                        type: 'error',
+                        message: 'Thất bại',
+                    });
                 }
             }
         }
