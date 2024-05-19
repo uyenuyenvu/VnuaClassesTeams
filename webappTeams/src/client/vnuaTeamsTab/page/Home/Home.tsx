@@ -31,6 +31,8 @@ export function Home({ user, onClickChangeTeacherId }: HomeProps) {
         React.useState<boolean>(false);
     const { value: authToken } = useLocalStorage<string>('authToken');
     const { value: tenantId } = useLocalStorage<string>('tenantId');
+    const [errorCounter, setErrorCounter] = React.useState<number>(0);
+    const [successCounter, setSuccessCounter] = React.useState<number>(0);
 
     const hasCreatedClasses =
         teachingClasses.length > 0 &&
@@ -80,7 +82,7 @@ export function Home({ user, onClickChangeTeacherId }: HomeProps) {
         if (!creatingClasses) {
             Swal.fire({
                 icon: 'info',
-                text: 'KHông có lớp nào để tạo',
+                text: 'Không có lớp nào để tạo',
             });
             return;
         }
@@ -93,15 +95,19 @@ export function Home({ user, onClickChangeTeacherId }: HomeProps) {
                     teachingClass: [item],
                 });
                 updateTeachingClassCreateStatus(item, { type: 'success' });
+                setSuccessCounter((prev) => prev + 1);
             } catch (error) {
+                setErrorCounter((prev) => prev + 1);
                 const statusCode = error.response?.status;
                 if (statusCode === 403) {
                     Swal.fire({
                         icon: 'error',
                         text: 'Đã hết phiên làm việc. Vui lòng đăng nhập lại',
+                        willClose: document.location.reload,
                     });
                     return;
-                } else if (statusCode === 409) {
+                }
+                if (statusCode === 409) {
                     updateTeachingClassCreateStatus(item, {
                         type: 'error',
                         message: 'Nhóm lớp đã tồn tại',
@@ -116,23 +122,21 @@ export function Home({ user, onClickChangeTeacherId }: HomeProps) {
         }
 
         // Cho người dùng nhìn thấy kết quả sau n giây
-        setTimeout(() => setIsCreatingClasses(false), 1000);
+        setTimeout(() => {
+            setIsCreatingClasses(false);
+            setErrorCounter(0);
+            setSuccessCounter(0);
+        }, 1000);
     };
+
+    console.log({ teachingClasses });
 
     return (
         <>
             {isCreatingClasses && (
                 <ClassCreatingLoadingModal
-                    successCount={
-                        teachingClasses.filter(
-                            (item) => item.createStatus.type === 'success'
-                        ).length
-                    }
-                    errorCount={
-                        teachingClasses.filter(
-                            (item) => item.createStatus.type === 'error'
-                        ).length
-                    }
+                    successCount={successCounter}
+                    errorCount={errorCounter}
                     totalCount={teachingClasses.length}
                 />
             )}

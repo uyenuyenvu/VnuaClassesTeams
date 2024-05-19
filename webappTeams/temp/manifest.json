@@ -6,9 +6,9 @@
     "packageName": "vnuaschedule",
     "developer": {
         "name": "Uyên - Nam - Toàn (K63CNPM)",
-        "websiteUrl": "https://c533-220-231-107-156.ngrok-free.app",
-        "privacyUrl": "https://c533-220-231-107-156.ngrok-free.app/privacy.html",
-        "termsOfUseUrl": "https://c533-220-231-107-156.ngrok-free.app/tou.html"
+        "websiteUrl": "https://c8f5-14-191-161-79.ngrok-free.app",
+        "privacyUrl": "https://c8f5-14-191-161-79.ngrok-free.app/privacy.html",
+        "termsOfUseUrl": "https://c8f5-14-191-161-79.ngrok-free.app/tou.html"
     },
     "name": {
         "short": "VnuaTeams",
@@ -28,7 +28,7 @@
         {
             "entityId": "30b71a0c-36fb-4eea-bd18-656bb54925d2",
             "name": "VnuaTeams Tab",
-            "contentUrl": "https://c533-220-231-107-156.ngrok-free.app/vnuaTeamsTab/?name={loginHint}&tenant={tid}&theme={theme}",
+            "contentUrl": "https://c8f5-14-191-161-79.ngrok-free.app/vnuaTeamsTab/?name={loginHint}&tenant={tid}&theme={theme}",
             "scopes": ["personal"]
         }
     ],
@@ -36,10 +36,10 @@
     "connectors": [],
     "composeExtensions": [],
     "permissions": ["identity", "messageTeamMembers"],
-    "validDomains": ["c533-220-231-107-156.ngrok-free.app"],
+    "validDomains": ["c8f5-14-191-161-79.ngrok-free.app"],
     "showLoadingIndicator": false,
     "webApplicationInfo": {
         "id": "e2c44ec0-bc10-45c0-8cd6-df8c2f13095e",
-        "resource": "api://c533-220-231-107-156.ngrok-free.app/e2c44ec0-bc10-45c0-8cd6-df8c2f13095e"
+        "resource": "api://c8f5-14-191-161-79.ngrok-free.app/e2c44ec0-bc10-45c0-8cd6-df8c2f13095e"
     }
 }
