@@ -44,6 +44,11 @@ TAB_APP_URI=api://st-msteams.com/e2c44ec0-bc10-45c0-8cd6-df8c2f13095e
 
 Trong đó, `e2c44ec0-bc10-45c0-8cd6-df8c2f13095e` là ID của app trên Azure, và ID này không bao giờ đổi
 
+### `API_URL`
+Đây là địa chỉ của backend. 
+
+**Lưu ý: phải có dấu `/` ở cuối. VD: https://msteam-api.bern.asia/** 
+
 ## 3. Thiết lập trên Azure
 
 Sau khi đăng nhập thành công vào Azure, lần lượt thực hiện các bước sau
