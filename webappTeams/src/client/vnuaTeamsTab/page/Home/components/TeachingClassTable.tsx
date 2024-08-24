@@ -16,12 +16,17 @@ type TeachingClassTableProps = {
         hasOnlineMeeting: boolean
     ) => void;
     hasCreatedClasses: boolean;
+    onUpdateClassDisplayName: (classIndex: number, displayName: string) => void;
 };
+
+const isDev = process.env.NODE_ENV?.includes('dev');
+
 export function TeachingClassTable({
     teachingClasses,
     onCreateClasses,
     onDownloadClasses,
     onUpdateClassHasOnineMeeting,
+    onUpdateClassDisplayName,
     hasCreatedClasses,
 }: TeachingClassTableProps) {
     if (teachingClasses.length === 0) {
@@ -52,7 +57,7 @@ export function TeachingClassTable({
                                 width: 'auto',
                             }}
                         >
-                            Tạo lịch online
+                            Tạo lịch meeting
                         </th>
                         <th></th>
                         {hasCreatedClasses && <th>Trạng thái</th>}
@@ -63,10 +68,16 @@ export function TeachingClassTable({
                             <td className='txt-center '>
                                 <div className='flex'>
                                     <input
-                                        value={thisClass.displayName}
+                                        value={
+                                            teachingClasses[index].displayName
+                                        }
                                         onChange={(e) => {
-                                            teachingClasses[index].displayName =
+                                            const newDisplayName =
                                                 e.target.value;
+                                            onUpdateClassDisplayName(
+                                                index,
+                                                newDisplayName
+                                            );
                                         }}
                                         className={'inputClass'}
                                     />
@@ -145,7 +156,7 @@ export function TeachingClassTable({
                     content={
                         'Tạo nhóm lớp' +
                         (teachingClasses.some((item) => item.hasOnlineMeeting)
-                            ? ' và lịch học online'
+                            ? ' và lịch meeting'
                             : '')
                     }
                 />

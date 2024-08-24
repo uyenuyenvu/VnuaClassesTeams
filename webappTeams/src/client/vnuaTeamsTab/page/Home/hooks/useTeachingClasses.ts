@@ -72,6 +72,14 @@ export function useFetchingClasses() {
                 }))
             );
         },
+        updateTeachingClassDisplayName(
+            classIndex: number,
+            displayName: string
+        ) {
+            const newTeachingClasses = [...teachingClasses];
+            newTeachingClasses[classIndex].displayName = displayName;
+            setTeachingClasses(newTeachingClasses);
+        }
     };
 }
 

@@ -21,6 +21,7 @@ export function Home({ user, onClickChangeTeacherId }: HomeProps) {
         getTeachingClasses,
         updateTeachingClassCreateStatus,
         updateTeachingClassHasOnlineMeeting,
+        updateTeachingClassDisplayName,
         teachingClasses,
         isLoading: isFetchingTeachingClasses,
         getTeachingClassesError,
@@ -65,8 +66,6 @@ export function Home({ user, onClickChangeTeacherId }: HomeProps) {
             `Lịch dạy của ${user.teacherId} HK${semester.index}-${semester.startYear}-${semester.endYear}.json`
         );
     };
-
-    console.log({ teachingClasses });
 
     const createClasses = async () => {
         setIsCreatingClasses(true);
@@ -129,8 +128,6 @@ export function Home({ user, onClickChangeTeacherId }: HomeProps) {
         }, 1000);
     };
 
-    console.log({ teachingClasses });
-
     return (
         <>
             {isCreatingClasses && (
@@ -158,6 +155,9 @@ export function Home({ user, onClickChangeTeacherId }: HomeProps) {
                                 onDownloadClasses={downloadClassesAsJson}
                                 onUpdateClassHasOnineMeeting={
                                     updateTeachingClassHasOnlineMeeting
+                                }
+                                onUpdateClassDisplayName={
+                                    updateTeachingClassDisplayName
                                 }
                                 onCreateClasses={createClasses}
                             />
