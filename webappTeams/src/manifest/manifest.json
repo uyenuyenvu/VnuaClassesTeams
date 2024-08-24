@@ -11,8 +11,8 @@
         "termsOfUseUrl": "https://{{PUBLIC_HOSTNAME}}/tou.html"
     },
     "name": {
-        "short": "VnuaTeams",
-        "full": "VnuaTeams"
+        "short": "ST-VnuaTeams",
+        "full": "ST-VnuaTeams"
     },
     "description": {
         "short": "Phần mềm tự động tạo nhóm MS Teams",
