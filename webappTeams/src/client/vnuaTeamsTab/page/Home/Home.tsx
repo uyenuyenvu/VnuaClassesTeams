@@ -1,0 +1,172 @@
+import * as React from 'react';
+import Swal from 'sweetalert2';
+import { Header } from '../../common/components/Header';
+import { Loading } from '../../common/components/Loading';
+import useLocalStorage from '../../common/hooks/useLocalStorage';
+import { User } from '../../types/user';
+import { ClassCreatingLoadingModal } from './components/ClassCreatingModal';
+import { SemesterForm } from './components/SemesterForm';
+import { TeachingClassTable } from './components/TeachingClassTable';
+import { useCreateClass } from './hooks/useCreateClass';
+import { useFetchingClasses } from './hooks/useTeachingClasses';
+import { TeachingClass } from '../../types/teaching-class';
+import { DownloadUtil } from '../../util/download-util';
+
+type HomeProps = {
+    user: User;
+    onClickChangeTeacherId: () => void;
+};
+export function Home({ user, onClickChangeTeacherId }: HomeProps) {
+    const {
+        getTeachingClasses,
+        updateTeachingClassCreateStatus,
+        updateTeachingClassHasOnlineMeeting,
+        updateTeachingClassDisplayName,
+        teachingClasses,
+        isLoading: isFetchingTeachingClasses,
+        getTeachingClassesError,
+        resetAllClassCreateStatus,
+    } = useFetchingClasses();
+    const { mutateAsync: createClassAsync } = useCreateClass();
+    const [isCreatingClasses, setIsCreatingClasses] =
+        React.useState<boolean>(false);
+    const { value: authToken } = useLocalStorage<string>('authToken');
+    const { value: tenantId } = useLocalStorage<string>('tenantId');
+    const [errorCounter, setErrorCounter] = React.useState<number>(0);
+    const [successCounter, setSuccessCounter] = React.useState<number>(0);
+
+    const hasCreatedClasses =
+        teachingClasses.length > 0 &&
+        teachingClasses?.every(
+            (item) =>
+                item.createStatus.type === 'success' ||
+                item.createStatus.type === 'error'
+        );
+
+    const getClasses = (semesterId: string, semesterCode?: string) => {
+        getTeachingClasses(user.teacherId, semesterId, semesterCode);
+    };
+
+    React.useEffect(() => {
+        if (getTeachingClassesError) {
+            console.error(getTeachingClassesError);
+            Swal.fire({
+                icon: 'error',
+                text:
+                    getTeachingClassesError.message ||
+                    'Có lỗi xảy ra khi lấy lịch dạy',
+            });
+        }
+    }, [getTeachingClassesError]);
+
+    const downloadClassesAsJson = (teachingClasses: TeachingClass[]) => {
+        const semester = teachingClasses[0].semester;
+        DownloadUtil.downloadJson(
+            teachingClasses,
+            `Lịch dạy của ${user.teacherId} HK${semester.index}-${semester.startYear}-${semester.endYear}.json`
+        );
+    };
+
+    const createClasses = async () => {
+        setIsCreatingClasses(true);
+        resetAllClassCreateStatus();
+        const creatingClasses = teachingClasses?.map((item) => ({
+            ...item,
+            createStatus: { type: 'none' as const },
+            users: item.students.value.map(
+                (student) => `${student.id}@sv.vnua.edu.vn`
+            ),
+        }));
+
+        if (!creatingClasses) {
+            Swal.fire({
+                icon: 'info',
+                text: 'Không có lớp nào để tạo',
+            });
+            return;
+        }
+
+        for (const item of creatingClasses) {
+            try {
+                await createClassAsync({
+                    authToken,
+                    tenantId,
+                    teachingClass: [item],
+                });
+                updateTeachingClassCreateStatus(item, { type: 'success' });
+                setSuccessCounter((prev) => prev + 1);
+            } catch (error) {
+                setErrorCounter((prev) => prev + 1);
+                const statusCode = error.response?.status;
+                if (statusCode === 403) {
+                    Swal.fire({
+                        icon: 'error',
+                        text: 'Đã hết phiên làm việc. Vui lòng đăng nhập lại',
+                        willClose: document.location.reload,
+                    });
+                    return;
+                }
+                if (statusCode === 409) {
+                    updateTeachingClassCreateStatus(item, {
+                        type: 'error',
+                        message: 'Nhóm lớp đã tồn tại',
+                    });
+                } else {
+                    updateTeachingClassCreateStatus(item, {
+                        type: 'error',
+                        message: 'Thất bại',
+                    });
+                }
+            }
+        }
+
+        // Cho người dùng nhìn thấy kết quả sau n giây
+        setTimeout(() => {
+            setIsCreatingClasses(false);
+            setErrorCounter(0);
+            setSuccessCounter(0);
+        }, 1000);
+    };
+
+    return (
+        <>
+            {isCreatingClasses && (
+                <ClassCreatingLoadingModal
+                    successCount={successCounter}
+                    errorCount={errorCounter}
+                    totalCount={teachingClasses.length}
+                />
+            )}
+
+            <div className='mainWrap'>
+                <div className={'containerWrap'}>
+                    <Header
+                        onClickChangeTeacherCode={onClickChangeTeacherId}
+                        user={user}
+                    />
+                    <div className='content'>
+                        <div className='teacherCodeContainer'>
+                            <SemesterForm onSubmit={getClasses} />
+                        </div>
+                        <div className={'tableWrap'}>
+                            <TeachingClassTable
+                                teachingClasses={teachingClasses}
+                                hasCreatedClasses={hasCreatedClasses}
+                                onDownloadClasses={downloadClassesAsJson}
+                                onUpdateClassHasOnineMeeting={
+                                    updateTeachingClassHasOnlineMeeting
+                                }
+                                onUpdateClassDisplayName={
+                                    updateTeachingClassDisplayName
+                                }
+                                onCreateClasses={createClasses}
+                            />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <Loading enabled={isFetchingTeachingClasses} />
+        </>
+    );
+}
